@@ -1,0 +1,20 @@
+{
+  "name": "ChatGPT Prompt Counter",
+  "description": "A chrome extension to track the number of ChatGPT prompts used",
+  "version": "1.0",
+  "permissions":[
+    "storage",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "https://chatgpt.com/backend-api/*"
+  ],
+    "background": {
+    "service_worker": "background.js"
+  },
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "hello_extensions.png"
+  }
+}
