@@ -25,7 +25,6 @@ chrome.webRequest.onBeforeRequest.addListener(
     if (details.method === "POST" && details.requestBody?.raw) {
       const chunk = details.requestBody.raw[0];
       const bodyText = new TextDecoder("utf-8").decode(chunk.bytes);
-        console.log("in the listener");
  
       try {
         const json = JSON.parse(bodyText);
@@ -48,3 +47,19 @@ chrome.webRequest.onBeforeRequest.addListener(
   filter,
   ["requestBody"]
 );
+
+
+async function resetCounts(){
+  const { modelCounts = {} } = await chrome.storage.local.get("modelCounts");
+  Object.keys(modelCounts).forEach(key => {
+    modelCounts[key] = 0;
+  });
+  await chrome.storage.local.set({ modelCounts })
+}
+
+chrome.runtime.onMessage.addListener((msg, sender) => {
+  console.log("Reset listener")
+  if (msg === 'reset') {
+    resetCounts();
+  }
+});

@@ -28,6 +28,14 @@
 // document.addEventListener('DOMContentLoaded', renderCount);
 
 // popup.js
+
+const btn  = document.getElementById('reset')
+
+btn.addEventListener('click', async () => {
+  console.log("Reset button clicked")
+  await chrome.runtime.sendMessage('reset');
+  renderModelCounts();
+});
 const list = document.getElementById("countsList");
 
 async function renderModelCounts() {
