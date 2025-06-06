@@ -11,8 +11,8 @@ async function incrementModelCount(modelName) {
   const { modelCounts = {} } = await chrome.storage.local.get("modelCounts");
 
 
-  const current = modelCounts[modelName] || 0;
-  modelCounts[modelName] = current + 1;
+  const current = modelCounts[modelName] || [];
+  modelCounts[modelName].push(Date.now());
 
 
   await chrome.storage.local.set({ modelCounts });
@@ -52,7 +52,7 @@ chrome.webRequest.onBeforeRequest.addListener(
 async function resetCounts(){
   const { modelCounts = {} } = await chrome.storage.local.get("modelCounts");
   Object.keys(modelCounts).forEach(key => {
-    modelCounts[key] = 0;
+    modelCounts[key] = [];
   });
   await chrome.storage.local.set({ modelCounts })
 }
