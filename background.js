@@ -9,11 +9,9 @@ async function incrementModelCount(modelName) {
     console.log("In increment model count");
 
   const { modelCounts = {} } = await chrome.storage.local.get("modelCounts");
+  
 
-
-  const current = modelCounts[modelName] || [];
-  modelCounts[modelName].push(Date.now());
-
+  (modelCounts[modelName] = modelCounts[modelName] || []).push(Date.now());
 
   await chrome.storage.local.set({ modelCounts });
 

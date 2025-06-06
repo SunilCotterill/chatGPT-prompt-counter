@@ -13,7 +13,7 @@ async function renderModelCounts(timeFrame) {
   list.innerHTML = "";  // clear
   console.log(`${timeFrame}`)
 
-  // Yes this is not optimal however this is an app for me
+  // Could use binary search for finding cutoff, for now going with linear search
   if (timeFrame == "week"){
      for (let [model, count] of Object.entries(modelCounts)) {
       const now = Date.now();
